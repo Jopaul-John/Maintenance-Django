@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <style>
+        body {
+            font-size: 10pt;
+        }
+
+        header,
+        main,
+        footer {
+            padding-left: 300px;
+        }
+
+        @media only screen and (max-width: 992px) {
+            header,
+            main,
+            footer {
+                padding-left: 0;
+            }
+        }
+
+        nav {
+            z-index: 5;
+            font-size: 10pt;
+        }
+
+        #slide-out {
+            z-index: 0;
+            padding-top: 80px;
+        }
+
+        .wrapper {
+            padding: 20px 50px 80px 350px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Fixed side nav -->
+    {% include "sidenav.html" %}
+    <!-- Main navbar -->
+    {% include "navbar.html" %}
+
+    <div class="col s9">
+        <main class="wrapper">
+            <h4 class="header">Latest Device Issues</h4>
+            <hr>
+            <br>
+            <div class="row">
+                <div class="col s12">
+                    <ul id="tabs-swipe-demo" class="tabs">
+                        <li class="tab col s6"><a class="active" href="#test-swipe-2">Unresolved Issues</a></li>
+                        <li class="tab col s6"><a href="#test-swipe-3">Resolved Issues</a></li>
+                    </ul>
+                </div>
+                <div id="test-swipe-2" class="col s11">
+                    <div class="col s12">
+                        {% for obj in issues %}
+                        <div class="card horizontal">
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <b>{{ obj.issue }}</b>
+                                </div>
+                                <div class="card-action">
+                                    <p>Device Model : <a href="/device/{{ obj.device.slug }}">{{ obj.device.model }}</a></p>
+                                    <p>Device ID : {{ obj.device.device_id }}</p>
+                                    <p>Issue report date : {{ obj.date }}</p>
+                                    <p>Device status: {{ obj.device.status }}</p>
+                                    <p>Resolved : {{ obj.resolved }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="test-swipe-3" class="col s11">
+                    <div class="col s12">
+                        {% for obj in resolved %}
+                        <div class="card horizontal">
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <b>{{ obj.issue }}</b>
+                                </div>
+                                <div class="card-action">
+                                    <p>Device Model : <a href="/device/{{ obj.device.slug }}">{{ obj.device.model }}</a></p>
+                                    <p>Device ID : {{ obj.device.device_id }}</p>
+                                    <p>Issue report date : {{ obj.date }}</p>
+                                    <p>Device status: {{ obj.device.status }}</p>
+                                    <p>Resolved : {{ obj.resolved }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+
+        $('#lab-dropdown').onchange(function(e) {
+            e.preventDefault();
+            console.log('yep');
+        })
+
+        $(document).ready(function() {
+            $('.materialboxed').materialbox();
+        });
+
+    </script>
+</body>

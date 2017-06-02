@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <style>
+        body {
+            font-size: 10pt;
+        }
+
+        header,
+        main,
+        footer {
+            padding-left: 300px;
+        }
+
+        @media only screen and (max-width: 992px) {
+            header,
+            main,
+            footer {
+                padding-left: 0;
+            }
+        }
+
+        nav {
+            z-index: 5;
+            font-size: 10pt;
+        }
+
+        #slide-out {
+            z-index: 0;
+            padding-top: 80px;
+        }
+
+        .wrapper {
+            padding: 20px 50px 80px 350px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Fixed side nav -->
+    {% include "sidenav.html" %}
+    <!-- Main navbar -->
+    {% include "navbar.html" %}
+    <div class="wrapper">
+    <h4>Search Results</h4>
+    <hr>
+    {% if devices %}
+    <table class="highlight responsive-table centered">
+        <thead>
+            <tr>
+                <th data-field="id">Device ID</th>
+                <th data-field="name">Model</th>
+                <th data-field="price">Status</th>
+                <th data-field="price">Location</th>
+                <th data-field="price">Last Check</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for device in devices %}
+            <tr>
+                <td>{{ device.device_id }}</td>
+                <td><a href="/device/{{ device.slug }}/">{{ device.model }}</a></td>
+                <td>{{ device.status }}</td>
+                <td>{{ device.location }}</td>
+                <td>{{ device.last_check }}</td>
+            </tr>
+        {% endfor %}
+        {% else %}
+        <div class="chip" style="margin-left: 450px;">No match found! :(</div>
+        {% endif %}
+        </tbody>
+    </table>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+
+        $('#lab-dropdown').onchange(function(e) {
+            e.preventDefault();
+            console.log('yep');
+        })
+
+        $(document).ready(function() {
+            $('.materialboxed').materialbox();
+        });
+
+    </script>
+</body>
