@@ -33,6 +33,6 @@ six==1.10.0
 Twisted==17.1.0
 txaio==2.7.0
 typing==3.6.1
-urllib3==1.20
+urllib3==1.26.5
 whitenoise==3.2.1
 zope.interface==4.4.0
